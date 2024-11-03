@@ -12,6 +12,7 @@
             Name = name;
             Type = type;
         }
+        protected Item() { }
 
     }
 }

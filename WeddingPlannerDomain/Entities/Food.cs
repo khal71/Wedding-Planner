@@ -11,11 +11,16 @@ namespace WeddingPlannerDomain.Entities
         public bool Vegetarian { get; set; }
         public bool Vegan { get; set; }
 
+      
         public Food(int id, string name, string type, bool vegeterian, bool vegan)
             :base(id,name,type)
         {
             Vegetarian = vegeterian;
             Vegan = vegan;
+        }
+        public Food()
+        {
+
         }
     }
 }

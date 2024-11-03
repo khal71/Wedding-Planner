@@ -15,5 +15,9 @@ namespace WeddingPlannerDomain
         {
             Color = color;
         }
+        public Flower()
+        {
+
+        }
     }
 }
