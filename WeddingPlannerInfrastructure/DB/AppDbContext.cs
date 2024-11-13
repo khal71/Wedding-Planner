@@ -17,6 +17,22 @@ namespace WeddingPlannerInfrastructure.DB
         }
         public DbSet<Flower> ?Flower { get; set; }
         public DbSet<Food> ?Food { get; set; }
+        public DbSet<User> ?Users { get; set; }
+        public DbSet<Admin> ?Admins { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .Property(u => u.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Admin>()
+                .Property(a => a.Id)
+                .ValueGeneratedOnAdd();
+        }
+       
+
         
+
     }
 }
