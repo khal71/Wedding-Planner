@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="ReposImplementation\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WeddingPlannerApplication\WeddingPlannerApplication.csproj" />
     <ProjectReference Include="..\WeddingPlannerDomain\WeddingPlannerDomain.csproj" />
   </ItemGroup>
 
