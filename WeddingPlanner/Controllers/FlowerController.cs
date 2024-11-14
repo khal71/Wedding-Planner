@@ -16,7 +16,7 @@ namespace WeddingPlanner.Controllers
         private readonly IFlowerService _service;
         public FlowerController(IFlowerService service)
         {
-            service = _service;
+            _service = service;
         }
 
         [HttpGet]

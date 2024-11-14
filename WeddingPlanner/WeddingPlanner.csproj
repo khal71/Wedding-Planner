@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WeddingPlannerApplication\WeddingPlannerApplication.csproj" />
     <ProjectReference Include="..\WeddingPlannerInfrastructure\WeddingPlannerInfrastructure.csproj" />
   </ItemGroup>
 
