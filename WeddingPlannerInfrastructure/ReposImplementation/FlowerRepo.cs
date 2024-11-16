@@ -51,6 +51,7 @@ namespace WeddingPlannerInfrastructure.ReposImplementation
             {
                 flower.Name = updatedFlower.Name;
                 flower.Type = updatedFlower.Type;
+                flower.ImageData = updatedFlower.ImageData;
                 flower.Color = updatedFlower.Color;
                 await _dbContext.SaveChangesAsync();
             }

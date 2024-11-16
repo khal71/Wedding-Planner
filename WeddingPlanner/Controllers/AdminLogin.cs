@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerDomain.Entities;
 
 namespace WeddingPlanner.Controllers
@@ -12,13 +13,13 @@ namespace WeddingPlanner.Controllers
     public class AdminLogin : Controller
     {
 
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IAdminService _adminService;
         private readonly IConfiguration _configuration;
 
        
-        public AdminLogin(UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public AdminLogin(IAdminService adminService, IConfiguration configuration)
         {
-            _userManager = userManager;
+            _adminService = adminService;
             _configuration = configuration;
         }
 
@@ -26,19 +27,13 @@ namespace WeddingPlanner.Controllers
         public async Task<IActionResult> LoginAdmin([FromBody] Admin request)
         {
             
-            var adminUser = await _userManager.FindByEmailAsync(request.Email);
-            if (adminUser == null || !await _userManager.CheckPasswordAsync(adminUser, request.Password))
+            var adminUser = await _adminService.FindByEmailAsync(request.Email);
+            if (adminUser == null || _adminService.ValidatePasswordAsync(request.Password, adminUser.Model.Password))
             {
                 return BadRequest("Invalid username or password");
             }
 
-            
-            var isAdmin = await _userManager.IsInRoleAsync(adminUser, "Admin");
-            if (!isAdmin)
-            {
-                return Unauthorized("Access denied. Only admins can log in here.");
-            }
-
+           
             var authClaims = new List<Claim>
         {
             new Claim("adminEmail", request.Email),

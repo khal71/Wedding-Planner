@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeddingPlanner.Helpers;
 using WeddingPlannerApplication.RepositoriesInterfaces;
 using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerDomain;
@@ -22,6 +23,8 @@ namespace WeddingPlannerApplication.Services.ServicesImplementation
         {
             if (newUser != null)
             {
+                var hasher = new PasswhordHash();
+                newUser.Password = hasher.HashPassword(newUser.Password);
                 var res = await _userRepo.AddAsync(newUser);
                 if (res != null)
                 {
@@ -78,6 +81,20 @@ namespace WeddingPlannerApplication.Services.ServicesImplementation
                 return new ActionResponse<User>("User was not updated");
             }
             return new ActionResponse<User>("User was not updated");
+        }
+        public async Task<ActionResponse<User>> FindByEmailAsync(string email)
+        {
+            var res = await _userRepo.FindByEmailAsync(email);
+            if (res != null)
+            {
+                return new ActionResponse<User>(res);
+            }
+            return new ActionResponse<User>("User was not found");
+        }
+        public bool ValidatePasswordAsync(string request, string stored)
+        {
+            var hasher = new PasswhordHash();
+            return hasher.VerifyPassword(request, stored);
         }
     }
 

@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerDomain.Entities;
 
 namespace WeddingPlanner.Controllers
@@ -12,31 +13,24 @@ namespace WeddingPlanner.Controllers
     public class UserLogin : Controller
     {
         private readonly IConfiguration _configuration;
-        private readonly UserManager<IdentityUser> _user;
+        private readonly IUserService _userService;
       
-       //inject user manager
-        public UserLogin(IConfiguration configuration, UserManager<IdentityUser> user)
+       
+        public UserLogin(IConfiguration configuration, IUserService userService)
         {
             _configuration = configuration;
-            _user = user;
+            _userService = userService;
         }
 
         [HttpPost("user/login")]
         public async Task<ActionResult> LoginUser([FromBody] User request)
         {
-            var user = await _user.FindByEmailAsync(request.Email);
-            if (user == null || !await _user.CheckPasswordAsync(user, request.Password))
+            var user = await _userService.FindByEmailAsync(request.Email);
+            if (user == null ||  _userService.ValidatePasswordAsync(request.Password, user.Model.Password))
             {
                 return BadRequest("Invalid username or password");
             }
-            // create user manager 
-            //step 1 find user from email.
-            /* step 2 
-            if (user is null || !await _userManager.CheckPasswordAsync(user, request.Password))
-            {
-            return BadRequest("Invalid username or password");
-            }*/
-            // step 3 
+            
             var authClaims = new List<Claim>
             {
                 new Claim("userEmail", request.Email ),

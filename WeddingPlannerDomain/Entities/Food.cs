@@ -12,8 +12,8 @@ namespace WeddingPlannerDomain.Entities
         public bool Vegan { get; set; }
 
       
-        public Food(int id, string name, string type, bool vegeterian, bool vegan)
-            :base(id,name,type)
+        public Food(int id, string name, string type, byte[] imageData, bool vegeterian, bool vegan)
+            :base(id,name,type, imageData)
         {
             Vegetarian = vegeterian;
             Vegan = vegan;

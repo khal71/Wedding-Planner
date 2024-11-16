@@ -14,5 +14,6 @@ namespace WeddingPlannerApplication.RepositoriesInterfaces
         Task<Admin> UpdateAsync(int id, Admin updatedAdmin);
         Task<Admin> DeleteAsync(int id);
         Task<Admin> GetByIdAsync(int id);
+        Task<Admin> FindByEmailAsync(string email);
     }
 }

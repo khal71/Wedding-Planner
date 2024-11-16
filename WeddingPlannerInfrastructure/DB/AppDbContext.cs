@@ -29,6 +29,10 @@ namespace WeddingPlannerInfrastructure.DB
             modelBuilder.Entity<Admin>()
                 .Property(a => a.Id)
                 .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Flower>()
+               .Property(f => f.Id)
+               .ValueGeneratedOnAdd();
         }
        
 

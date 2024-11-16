@@ -10,8 +10,8 @@ namespace WeddingPlannerDomain
     {
         public string Color { get; set; }
 
-        public Flower(int id, string name, string type, string color)
-            : base(id, name, type) 
+        public Flower(int id, string name, string type, byte[] imageData ,string color)
+            : base(id, name, type, imageData) 
         {
             Color = color;
         }
