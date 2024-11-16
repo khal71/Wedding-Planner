@@ -36,6 +36,16 @@ namespace WeddingPlannerInfrastructure.ReposImplementation
             return res;
         }
 
+        public async Task<User> FindByEmailAsync(string email)
+        {
+            var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user != null)
+            {
+                return user;
+            }
+            return null;
+        }
+
         public async Task<User> GetByIdAsync(int id)
         {
             return await _dbContext.Users.FindAsync(id);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeddingPlanner.Helpers;
 using WeddingPlannerApplication.RepositoriesInterfaces;
 using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerDomain.Entities;
@@ -21,6 +22,8 @@ namespace WeddingPlannerApplication.Services.ServicesImplementation
         {
             if (newAdmin != null)
             {
+                var hasher = new PasswhordHash();
+                newAdmin.Password = hasher.HashPassword(newAdmin.Password);
                 var res = await _adminRepo.AddAsync(newAdmin);
                 if (res != null)
                 {
@@ -43,6 +46,16 @@ namespace WeddingPlannerApplication.Services.ServicesImplementation
                 return new ActionResponse<Admin>("Admin was not deleted");
             }
             return new ActionResponse<Admin>("Admin was not deleted");
+        }
+
+        public async Task<ActionResponse<Admin>> FindByEmailAsync(string email)
+        {
+           var res = await  _adminRepo.FindByEmailAsync(email);
+            if (res != null)
+            {
+                return new ActionResponse<Admin>(res);
+            }
+            return new ActionResponse<Admin>("Admin was not found");
         }
 
         public async Task<ActionResponse<Admin>> GetByIdAsync(int id)
@@ -78,5 +91,12 @@ namespace WeddingPlannerApplication.Services.ServicesImplementation
             }
             return new ActionResponse<Admin>("Admin was not updated");
         }
+
+        public bool ValidatePasswordAsync(string request, string stored)
+        {
+            var hasher = new PasswhordHash();
+             return hasher.VerifyPassword(request, stored);
+        }
+
     }
 }

@@ -14,5 +14,7 @@ namespace WeddingPlannerApplication.Services.ServicesInterfaces
         Task<ActionResponse<Admin>> UpdateAsync(int id, Admin updateAdmin);
         Task<ActionResponse<Admin>> DeleteAsync(int id);
         Task<ActionResponse<Admin>> GetByIdAsync(int id);
+        Task<ActionResponse<Admin>> FindByEmailAsync(string email);
+        bool ValidatePasswordAsync(string request, string stored);
     }
 }

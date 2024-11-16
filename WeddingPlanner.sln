@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingPlanner", "WeddingPlanner\WeddingPlanner.csproj", "{C78DF77A-0F55-4F98-BABF-4BC0B3B601BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingPlanner", "WeddingPlanner\WeddingPlanner.csproj", "{C78DF77A-0F55-4F98-BABF-4BC0B3B601BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingPlannerApplication", "WeddingPlannerApplication\WeddingPlannerApplication.csproj", "{B028B794-5B41-4880-B3B4-45E170A6DCCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingPlannerApplication", "WeddingPlannerApplication\WeddingPlannerApplication.csproj", "{B028B794-5B41-4880-B3B4-45E170A6DCCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingPlannerInfrastructure", "WeddingPlannerInfrastructure\WeddingPlannerInfrastructure.csproj", "{BD7E2653-BFDE-4E0E-ACE1-EFAA734FC28B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingPlannerInfrastructure", "WeddingPlannerInfrastructure\WeddingPlannerInfrastructure.csproj", "{BD7E2653-BFDE-4E0E-ACE1-EFAA734FC28B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingPlannerDomain", "WeddingPlannerDomain\WeddingPlannerDomain.csproj", "{43A024B0-FD69-454F-80A7-F2C559CD5F9B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingPlannerDomain", "WeddingPlannerDomain\WeddingPlannerDomain.csproj", "{43A024B0-FD69-454F-80A7-F2C559CD5F9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingPlanner.RazorPages", "WeddingPlanner.RazorPages\WeddingPlanner.RazorPages.csproj", "{D87831AC-937E-4817-9E2E-F51754745A68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{43A024B0-FD69-454F-80A7-F2C559CD5F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43A024B0-FD69-454F-80A7-F2C559CD5F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43A024B0-FD69-454F-80A7-F2C559CD5F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D87831AC-937E-4817-9E2E-F51754745A68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D87831AC-937E-4817-9E2E-F51754745A68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D87831AC-937E-4817-9E2E-F51754745A68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D87831AC-937E-4817-9E2E-F51754745A68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

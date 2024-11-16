@@ -10,8 +10,8 @@ namespace WeddingPlannerDomain.Entities
     {
         public string Size { get; set; }
         public int NrOfChairs { get; set; }
-        public Table(int id, string name, string type, string size, int nrOfChairs)
-            :base(id,name,type)
+        public Table(int id, string name, string type, byte[] imageData, string size, int nrOfChairs)
+            :base(id,name,type, imageData)
         {
             Size = size;
             NrOfChairs = nrOfChairs;

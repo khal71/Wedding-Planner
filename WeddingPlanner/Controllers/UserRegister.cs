@@ -1,53 +1,37 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerDomain.Entities;
 
 namespace WeddingPlanner.Controllers
 {
     public class UserRegister : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        public UserRegister( UserManager<IdentityUser> userManager)
+        private readonly IUserService _userService;
+        public UserRegister( IUserService userService)
         {
-            _userManager = userManager;
+            _userService = userService;
 
         }
 
         [HttpPost("user/register")]
         public async Task<ActionResult> RegisterUser([FromBody] User request)
         {
-            var existingUser = await _userManager.FindByNameAsync(request.Email);
+            var existingUser = _userService.FindByEmailAsync(request.Email);
             if (existingUser != null)
             {
                 return BadRequest(" Email is already taken");
             }
-            var newUser = new IdentityUser
-            {
-                
-                Email = request.Email
-            };
-            var result = await _userManager.CreateAsync(newUser, request.Password);
+           
+            var result = await _userService.AddAsync(request);
 
-            if (!result.Succeeded)
+            if (!result.IsSuccess)
             {
                 
-                return BadRequest(result.Errors);
+                return BadRequest(result);
             }
-
-            // create user manager 
-            //step 1 find user from email.
-            /* step 2 
-            var existingUser = await _userManager.FindByNameAsync(request.Username);
-             if (existingUser is not null)
-               {
-               return BadRequest("Username is already taken");
-               }*/
-            // step 3 
-            // service or repo var newUser = new UserEntity             {                Id = Guid.NewGuid().ToString(),  // Generate a unique ID UserName = request.Username, Password = request.Password, // In a real app, hash the password! IsAdmin = request.IsAdmin // Set admin status based on the request };
-            // call create user service
-
-
+   
             return Ok("User created");
 
         }

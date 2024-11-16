@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeddingPlannerApplication.RepositoriesInterfaces;
 using WeddingPlannerDomain.Entities;
 using WeddingPlannerInfrastructure.DB;
 
 namespace WeddingPlannerInfrastructure.ReposImplementation
 {
-    public class AdminRepo
+    public class AdminRepo:IAdminRepo
     {
 
         private readonly AppDbContext _dbContext;
@@ -32,6 +33,16 @@ namespace WeddingPlannerInfrastructure.ReposImplementation
             var res = (_dbContext.Admins.Remove(admin)).Entity;
             await _dbContext.SaveChangesAsync();
             return res;
+        }
+
+        public async Task<Admin> FindByEmailAsync(string email)
+        {
+            var admin = await _dbContext.Admins.FirstOrDefaultAsync(u => u.Email == email);
+            if (admin != null)
+            {
+                return admin;
+            }
+            return null;
         }
 
         public async Task<Admin> GetByIdAsync(int id)
