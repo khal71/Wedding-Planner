@@ -1,0 +1,15 @@
+﻿@page "{id:int}"
+@model WeddingPlanner.RazorPages.Pages.Flowers.DeleteFlowerModel
+@{
+    ViewData["Title"] = "Delete Flower";
+}
+
+<h1>Delete Flower</h1>
+
+<p>Are you sure you want to delete this flower?</p>
+<p><strong>@Model.Flower.Name</strong> - @Model.Flower.Type</p>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

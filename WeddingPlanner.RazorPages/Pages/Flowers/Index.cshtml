@@ -1,0 +1,35 @@
+﻿@page
+@model WeddingPlanner.RazorPages.Pages.Flowers.IndexFlowerModel
+@{
+    ViewData["Title"] = "Flowers";
+}
+
+<h1>All Flowers</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Color</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var flower in Model.Flowers)
+        {
+            <tr>
+                <td>@flower.Name</td>
+                <td>@flower.Type</td>
+                <td>@flower.Color</td>
+                <td>
+                    <a asp-page="ViewFlower" asp-route-id="@flower.Id" class="btn btn-info">View</a>
+                    <a asp-page="EditFlower" asp-route-id="@flower.Id" class="btn btn-warning">Edit</a>
+                    <a asp-page="DeleteFlower" asp-route-id="@flower.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-page="CreateFlower" class="btn btn-primary">Add New Flower</a>

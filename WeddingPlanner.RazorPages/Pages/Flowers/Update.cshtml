@@ -1,0 +1,25 @@
+﻿@page "{id:int}"
+@model WeddingPlanner.RazorPages.Pages.Flowers.UpdateFlowerModel
+@{
+    ViewData["Title"] = "Edit Flower";
+}
+
+<h1>Edit Flower</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Flower.Id" />
+    <div class="form-group">
+        <label asp-for="Flower.Name"></label>
+        <input asp-for="Flower.Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Flower.Type"></label>
+        <input asp-for="Flower.Type" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Flower.Color"></label>
+        <input asp-for="Flower.Color" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
