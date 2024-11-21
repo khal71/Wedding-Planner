@@ -4,6 +4,13 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>f83dc871-df7e-4565-bc2c-6ac971723150</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WeddingPlannerApplication\WeddingPlannerApplication.csproj" />
+    <ProjectReference Include="..\WeddingPlannerDomain\WeddingPlannerDomain.csproj" />
+    <ProjectReference Include="..\WeddingPlanner\WeddingPlanner.csproj" />
+  </ItemGroup>
 
 </Project>

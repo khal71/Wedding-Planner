@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingPlannerInfrastructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingPlannerDomain", "WeddingPlannerDomain\WeddingPlannerDomain.csproj", "{43A024B0-FD69-454F-80A7-F2C559CD5F9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingPlanner.RazorPages", "WeddingPlanner.RazorPages\WeddingPlanner.RazorPages.csproj", "{D87831AC-937E-4817-9E2E-F51754745A68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingPlanner.RazorPages", "WeddingPlanner.RazorPages\WeddingPlanner.RazorPages.csproj", "{D87831AC-937E-4817-9E2E-F51754745A68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
