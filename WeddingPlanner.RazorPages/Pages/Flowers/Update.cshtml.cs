@@ -9,50 +9,40 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
     
         public class UpdateFlowerModel : PageModel
         {
-            private readonly IFlowerService _flowerService;
+        private readonly FlowerService _flowerService;
 
-            
-            public UpdateFlowerModel(IFlowerService flowerService)
+        public UpdateFlowerModel(FlowerService flowerService)
+        {
+            _flowerService = flowerService;
+        }
+
+        [BindProperty]
+        public Flower Flower { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int id)
+        {
+            Flower = await _flowerService.GetFlowerByIdAsync(id);
+            if (Flower == null)
             {
-                _flowerService = flowerService;
+                return NotFound();
+            }
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
             }
 
-         
-            [BindProperty]
-            public Flower Flower { get; set; }
+            await _flowerService.UpdateFlowerAsync(Flower);
 
-
-            public async Task<IActionResult> OnGetAsync(int id)
-            {
-                
-                var response = await _flowerService.GetByIdAsync(id);
-
-              
-                if (!response.IsSuccess)
-                {
-                    return NotFound(response.Message);
-                }
-
-               
-                Flower = response.Model;
-
-                return Page(); 
-            }
-
-
-            public async Task<IActionResult> OnPostAsync()
-            {
-                if (!ModelState.IsValid)
-                {
-                    return Page();
-                }
-
-                
-                await _flowerService.AddAsync(Flower);
-
-                
-                return RedirectToPage("Index");
-            }
+            return RedirectToPage("Index");
         }
     }
+
+
+        }
+    
 

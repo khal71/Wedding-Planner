@@ -1,43 +1,45 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WeddingPlanner.RazorPages.Pages.Auth;
 using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerDomain;
 
 namespace WeddingPlanner.RazorPages.Pages.Flowers
 {
-    
-        public class CreateFlowerModel : PageModel
+
+    public class CreateFlowerModel : PageModel
+    {
+        private readonly FlowerService _flowerService;
+        private readonly SessionManager _sessionManager;
+
+        public CreateFlowerModel(FlowerService flowerService, SessionManager sessionManager)
         {
-            private readonly IFlowerService _flowerService;
+            _flowerService = flowerService;
+            _sessionManager = sessionManager;
+        }
 
-           
-            public CreateFlowerModel(IFlowerService flowerService)
+        [BindProperty]
+        public Flower Flower { get; set; }
+        [BindProperty]
+        public bool isAdmin  { get; set; }
+
+
+        public void OnGet()
+        {
+             isAdmin = _sessionManager.IsAdmin;
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
             {
-                _flowerService = flowerService;
+                return Page();
             }
 
-            [BindProperty]
-            public Flower Flower { get; set; }
+            await _flowerService.AddFlowerAsync(Flower);
 
-            
-            public void OnGet()
-            {
-            }
-
-          
-            public async Task<IActionResult> OnPostAsync()
-            {
-                if (!ModelState.IsValid)
-                {
-                    return Page();
-                }
-
-                
-                await _flowerService.AddAsync(Flower);
-
-                
-                return RedirectToPage("Index");
-            }
+            return RedirectToPage("Index");
         }
     }
+}
 

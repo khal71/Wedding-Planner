@@ -1,0 +1,35 @@
+﻿@page "/secret-login"
+@model WeddingPlanner.RazorPages.Pages.Admin.AdminLoginModel
+@{
+    ViewData["Title"] = "Admin Login";
+}
+
+<h2>Admin Login</h2>
+
+
+<form method="post">
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="Admin.Email" class="form-control" required />
+        <span asp-validation-for="Admin.Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="Admin.Password" class="form-control" required />
+        <span asp-validation-for="Admin.Password" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+@if (@Model.LoginResponse != null )
+{
+        <script>
+              localStorage.setItem('jwtToken', '@Model.LoginResponse.Token');
+             localStorage.setItem('tokenExpiration', '@Model.LoginResponse.Expiration.ToString("o")');
+        
+        </script>
+}
+
+

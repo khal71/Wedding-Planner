@@ -5,11 +5,15 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using WeddingPlanner.DTO;
 using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerDomain.Entities;
 
 namespace WeddingPlanner.Controllers
 {
+    [Route("/admin")]
+    [ApiController]
+    [Produces("application/json")]
     public class AdminLogin : Controller
     {
 
@@ -23,21 +27,26 @@ namespace WeddingPlanner.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost("admin/login")]
-        public async Task<IActionResult> LoginAdmin([FromBody] Admin request)
+        [HttpPost]
+        public async Task<IActionResult> LoginAdmin([FromBody] LoginModelDTO request)
         {
             
             var adminUser = await _adminService.FindByEmailAsync(request.Email);
-            if (adminUser == null || _adminService.ValidatePasswordAsync(request.Password, adminUser.Model.Password))
+            if (adminUser.Model == null )
+            {
+                return BadRequest("Invalid username or password");
+            }
+            var valid = _adminService.ValidatePasswordAsync(request.Password, adminUser.Model.Password);
+            if (valid == false)
             {
                 return BadRequest("Invalid username or password");
             }
 
-           
+
             var authClaims = new List<Claim>
         {
-            new Claim("adminEmail", request.Email),
-            new Claim("adminId", request.Id.ToString()),
+            new Claim("adminEmail", adminUser.Model.Email),
+            new Claim("adminId", adminUser.Model.Id.ToString()),
             new Claim(ClaimTypes.Role, "Admin")  
         };
 

@@ -2,16 +2,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerDomain;
-
+using System.Threading.Tasks;
 namespace WeddingPlanner.RazorPages.Pages.Flowers
 {
     
         public class ViewFlowerModel : PageModel
         {
-            private readonly IFlowerService _flowerService;
+            private readonly FlowerService _flowerService;
 
             
-            public ViewFlowerModel(IFlowerService flowerService)
+            public ViewFlowerModel(FlowerService flowerService)
             {
                 _flowerService = flowerService;
             }
@@ -19,18 +19,18 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
            
             public Flower Flower { get; set; }
 
-            public async Task<IActionResult> OnGetAsync(int id)
-            {
-                var response = await _flowerService.GetByIdAsync(id);
+        public async Task<IActionResult> OnGetAsync(int id)
+        {
+            var flower = await _flowerService.GetFlowerByIdAsync(id);
 
-               
-                if (!response.IsSuccess)
+
+            if (flower.Id == null)
                 {
                    
-                    return NotFound(response.Message);
+                    return NotFound();
                 }
 
-                Flower = response.Model;
+            Flower = flower;
 
                 return Page(); 
             }

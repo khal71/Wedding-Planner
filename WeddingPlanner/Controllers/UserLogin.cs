@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using WeddingPlanner.DTO;
 using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerDomain.Entities;
 
@@ -23,7 +24,7 @@ namespace WeddingPlanner.Controllers
         }
 
         [HttpPost("user/login")]
-        public async Task<ActionResult> LoginUser([FromBody] User request)
+        public async Task<ActionResult> LoginUser([FromBody] LoginModelDTO request)
         {
             var user = await _userService.FindByEmailAsync(request.Email);
             if (user == null ||  _userService.ValidatePasswordAsync(request.Password, user.Model.Password))
@@ -33,9 +34,9 @@ namespace WeddingPlanner.Controllers
             
             var authClaims = new List<Claim>
             {
-                new Claim("userEmail", request.Email ),
-                new Claim("userId", request.Id.ToString()),
-                new Claim("isAdmin", request.IsAdmin.ToString())
+                new Claim("userEmail", user.Model.Email ),
+                new Claim("userId", user.Model.Id.ToString()),
+                new Claim("isAdmin", user.Model.IsAdmin.ToString())
             };
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SecretKey"]));
 
