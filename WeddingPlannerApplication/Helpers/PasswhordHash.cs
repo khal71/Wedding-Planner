@@ -29,8 +29,8 @@ namespace WeddingPlanner.Helpers
         public bool VerifyPassword(string enteredPassword, string storedHash)
         {
             // Hash the entered password and compare it with the stored hash
-            string enteredHash = HashPassword(enteredPassword);
-            return enteredHash.Equals(storedHash, StringComparison.OrdinalIgnoreCase);
+          
+            return enteredPassword.Equals(storedHash, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

@@ -1,29 +1,30 @@
 using Microsoft.EntityFrameworkCore;
+using WeddingPlanner.RazorPages.Pages.Auth;
 using WeddingPlanner.RazorPages.Pages.Flowers;
 using WeddingPlannerApplication.RepositoriesInterfaces;
 using WeddingPlannerApplication.Services.ServicesImplementation;
 using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerInfrastructure.DB;
 using WeddingPlannerInfrastructure.ReposImplementation;
+using FlowerService = WeddingPlanner.RazorPages.Pages.Flowers.FlowerService;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IFlowerService, FlowerService>();
-builder.Services.AddScoped<IFlowerRepo, FlowerRepo>();
+
 // Add services to the container.
+
+builder.Services.AddHttpClient("ApiHttpClient", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiUrl"]);
+});
 builder.Services.AddRazorPages();
-
-
+builder.Services.AddScoped<FlowerService>();
+builder.Services.AddScoped<AuthService>();
+builder.Services.AddSingleton<SessionManager>();
 
 var app = builder.Build();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-// Register other services
-builder.Services.AddScoped<IFlowerRepo, FlowerRepo>();
-builder.Services.AddScoped<IFlowerService, FlowerService>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

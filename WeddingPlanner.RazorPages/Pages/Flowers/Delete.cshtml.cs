@@ -8,9 +8,9 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
 
     public class DeleteFlowerModel : PageModel
     {
-        private readonly IFlowerService _flowerService;
+        private readonly FlowerService _flowerService;
 
-        public DeleteFlowerModel(IFlowerService flowerService)
+        public DeleteFlowerModel(FlowerService flowerService)
         {
             _flowerService = flowerService;
         }
@@ -20,26 +20,32 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            var response = await _flowerService.GetByIdAsync(id);
-            if (!response.IsSuccess)
+            Flower = await _flowerService.GetFlowerByIdAsync(id);
+            if (Flower == null)
             {
-                return NotFound(response.Message);
+                return NotFound();
             }
-
-            Flower = response.Model;
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int id)
         {
-            var response = await _flowerService.DeleteAsync(id);
-            if (!response.IsSuccess)
+            var res = await _flowerService.DeleteFlowerAsync(id);
+           
+            if (res == true)
             {
-                return NotFound(response.Message);
+                
+                return Page(); // Redirect after deletion
+            }
+            else
+            {
+                // Handle failure
+                ModelState.AddModelError("", "Failed to delete the flower.");
+                return Page();
             }
 
-            return RedirectToPage("Index");
         }
     }
+
 }
 

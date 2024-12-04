@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WeddingPlanner.RazorPages.Pages.Auth;
 using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerDomain;
 using WeddingPlannerDomain.Entities;
@@ -8,17 +9,37 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
 {
     public class IndexFlowerModel : PageModel
     {
-        private readonly IFlowerService _flowerService;
 
-        public IndexFlowerModel(IFlowerService flowerService)
+        private readonly FlowerService _flowerService;
+        private readonly SessionManager _sessionManager;
+
+        public IndexFlowerModel(FlowerService flowerService, SessionManager sessionManager)
         {
             _flowerService = flowerService;
+            _sessionManager = sessionManager;
         }
+
         public List<Flower> Flowers { get; set; }
 
-        public async Task OnGetAsync()
+        [BindProperty]
+        public bool isLoggedin { get; set; }
+        public async Task<IActionResult> OnGetAsync()
         {
-            Flowers = await _flowerService.ListAsync();
+            isLoggedin = _sessionManager.IsAuthenticated;
+           if (isLoggedin == true)
+            {
+            Flowers = await _flowerService.GetAllFlowersAsync();
+                if (Flowers != null)
+                {
+                    return Page();
+                }
+                else { return Page(); }
+            }
+           else
+            {// change to user login
+              return RedirectToPage("/Admin/AdminLogin");
+            }
         }
     }
 }
+

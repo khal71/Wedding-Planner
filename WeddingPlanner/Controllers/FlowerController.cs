@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WeddingPlannerApplication;
@@ -7,10 +8,11 @@ using WeddingPlannerDomain;
 
 namespace WeddingPlanner.Controllers
 {
-    [Route("[controller]")]
+    [Route("/flower")]
     [ApiController]
     [Produces("application/json")]
-    
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+
     public class FlowerController : Controller
     {
         private readonly IFlowerService _service;
@@ -31,6 +33,7 @@ namespace WeddingPlanner.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy="AdminOnly")]
         public async Task<ActionResponse<Flower>> AddFlower([FromBody] Flower flower)
         {
             var res = await _service.AddAsync(flower);
@@ -54,6 +57,7 @@ namespace WeddingPlanner.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult<Flower>> Delete([FromRoute] int id)
         {
             var res = await _service.DeleteAsync(id);
@@ -65,6 +69,7 @@ namespace WeddingPlanner.Controllers
         }
 
         [HttpPut]
+        [Authorize(Policy = "AdminOnly")]
         public async Task<ActionResult<Flower>> Update(Flower flower)
         {
             var res = await _service.UpdateAsync(flower.Id, flower);

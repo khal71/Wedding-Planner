@@ -1,10 +1,15 @@
-﻿@page
+﻿@page "/flowers/create"
 @model WeddingPlanner.RazorPages.Pages.Flowers.CreateFlowerModel
 @{
 
     ViewData["Title"] = "Create Flower";
 }
-
+@if (@Model.isAdmin == false)
+{
+    <h1>Aunothorized access </h1>
+}
+@if (@Model.isAdmin == true){
+       
 <h1>Create Flower</h1>
 
 <form method="post">
@@ -23,3 +28,5 @@
     <button type="submit" class="btn btn-primary">Create</button>
     <a asp-page="Index" class="btn btn-secondary">Cancel</a>
 </form>
+}
+

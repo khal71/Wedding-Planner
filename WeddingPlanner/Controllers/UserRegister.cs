@@ -19,7 +19,7 @@ namespace WeddingPlanner.Controllers
         public async Task<ActionResult> RegisterUser([FromBody] User request)
         {
             var existingUser = _userService.FindByEmailAsync(request.Email);
-            if (existingUser != null)
+            if (existingUser.Result.Model != null)
             {
                 return BadRequest(" Email is already taken");
             }
