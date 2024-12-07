@@ -1,14 +1,17 @@
-﻿@page "{id:int}"
+﻿@page "/flowers/view/{id:int}"
 @model WeddingPlanner.RazorPages.Pages.Flowers.ViewFlowerModel
 @{
 
     ViewData["Title"] = "Flower Details";
 }
 
+@if (Model.Flower.ImageData != null && Model.Flower.ImageData.Length > 0)
+{
+    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Flower.ImageData)" alt="Flower Image" class="img-fluid" />
+}
 <h1>@Model.Flower.Name</h1>
 
 <p>Type: @Model.Flower.Type</p>
 <p>Color: @Model.Flower.Color</p>
 
 <a asp-page="Index" class="btn btn-secondary">Back to List</a>
-<a asp-page="EditFlower" asp-route-id="@Model.Flower.Id" class="btn btn-warning">Edit</a>

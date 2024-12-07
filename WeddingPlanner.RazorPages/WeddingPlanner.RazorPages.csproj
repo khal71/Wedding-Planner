@@ -13,4 +13,8 @@
     <ProjectReference Include="..\WeddingPlanner\WeddingPlanner.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Game\" />
+  </ItemGroup>
+
 </Project>

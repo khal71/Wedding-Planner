@@ -13,11 +13,11 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
         {
             _httpClient = httpClientFactory.CreateClient("ApiHttpClient");
             _sessionManager = sessionManager;
-
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sessionManager.stringToken);
         }
         public async Task<List<Flower>> GetAllFlowersAsync()
         {
+            
             return await _httpClient.GetFromJsonAsync<List<Flower>>("./flower");
             
         }
@@ -27,14 +27,16 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
             return await _httpClient.GetFromJsonAsync<Flower>($"/flower/{id}");
         }
 
-        public async Task AddFlowerAsync(Flower flower)
+        public async Task<bool> AddFlowerAsync(Flower flower)
         {
-            await _httpClient.PostAsJsonAsync("/flower", flower);
+           
+           var res = await _httpClient.PostAsJsonAsync<Flower>("/flower", flower);
+            return res.IsSuccessStatusCode;
         }
 
         public async Task UpdateFlowerAsync(Flower flower)
         {
-            await _httpClient.PutAsJsonAsync($"/flower/{flower.Id}", flower);
+            await _httpClient.PutAsJsonAsync($"/flower", flower);
         }
 
         public async Task<bool> DeleteFlowerAsync(int id)

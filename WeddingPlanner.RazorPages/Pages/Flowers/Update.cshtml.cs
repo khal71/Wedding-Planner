@@ -18,6 +18,9 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
 
         [BindProperty]
         public Flower Flower { get; set; }
+       
+        [BindProperty]
+        public IFormFile ImageFile { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -31,10 +34,24 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+           
+            if (ImageFile != null)
             {
-                return Page();
+                var allowedExtensions = new[] { "image/jpeg", "image/png", "image/gif" };
+                if (!allowedExtensions.Contains(ImageFile.ContentType))
+                {
+                    // Handle invalid file type
+                    ModelState.AddModelError("ImageFile", "Please upload a valid image file (JPEG, PNG, GIF).");
+                    return Page();
+                }
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    await ImageFile.CopyToAsync(memoryStream);
+                    Flower.ImageData = memoryStream.ToArray();
+                }
             }
+           
 
             await _flowerService.UpdateFlowerAsync(Flower);
 

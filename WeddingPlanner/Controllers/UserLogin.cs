@@ -11,6 +11,9 @@ using WeddingPlannerDomain.Entities;
 
 namespace WeddingPlanner.Controllers
 {
+
+    [ApiController]
+    [Produces("application/json")]
     public class UserLogin : Controller
     {
         private readonly IConfiguration _configuration;

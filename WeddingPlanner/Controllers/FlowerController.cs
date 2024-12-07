@@ -33,15 +33,19 @@ namespace WeddingPlanner.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy="AdminOnly")]
-        public async Task<ActionResponse<Flower>> AddFlower([FromBody] Flower flower)
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<ActionResult<Flower>> AddFlower([FromBody] Flower flower)
         {
+            if (!ModelState.IsValid)
+               {
+                  return  BadRequest("Failed to add flower.");
+            }
             var res = await _service.AddAsync(flower);
             if (res.IsSuccess)
             {
-                return res;
+                return Ok();
             }
-            return new ActionResponse<Flower>("Failed to add flower.");
+            return BadRequest("Failed to add flower.");
 
         }
 
