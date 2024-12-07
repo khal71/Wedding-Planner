@@ -1,4 +1,4 @@
-﻿@page "{id:int}"
+﻿@page "/flowers/update/{id:int}"
 @model WeddingPlanner.RazorPages.Pages.Flowers.UpdateFlowerModel
 @{
     ViewData["Title"] = "Edit Flower";
@@ -6,7 +6,13 @@
 
 <h1>Edit Flower</h1>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
+    <input type="file" asp-for="ImageFile" />
+    @if (Model.Flower.ImageData != null && Model.Flower.ImageData.Length > 0)
+    {
+        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Flower.ImageData)" alt="Flower Image" class="img-fluid" />
+    }
+    <input type="hidden" asp-for="Flower.ImageData" />
     <input type="hidden" asp-for="Flower.Id" />
     <div class="form-group">
         <label asp-for="Flower.Name"></label>

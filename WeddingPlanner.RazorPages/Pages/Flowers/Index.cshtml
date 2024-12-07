@@ -23,18 +23,20 @@
                     <td>@flower.Type</td>
                     <td>@flower.Color</td>
                     <td>
-                        <a asp-page="/flowers/create" class="btn btn-primary">Add New Flower</a>
-                        <a asp-page="ViewFlower" asp-route-id="@flower.Id" class="btn btn-info">View</a>
-                        <a asp-page="EditFlower" asp-route-id="@flower.Id" class="btn btn-warning">Edit</a>
-                        <a asp-page="/flowers/delete{id:int}" asp-route-id="@flower.Id" class="btn btn-danger">Delete</a>
+                        <a asp-page="/flowers/view" asp-route-id="@flower.Id" class="btn btn-info">View</a>
+                        @if (@Model.isAdmin == true){
+                            <a asp-page="/flowers/update" asp-route-id="@flower.Id" class="btn btn-warning">Edit</a>
+                            <a asp-page="/flowers/delete" asp-route-id="@flower.Id" class="btn btn-danger">Delete</a>
+                        }
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-
-    <a asp-page="CreateFlower" class="btn btn-primary">Add New Flower</a>
-
+    @if (@Model.isAdmin == true)
+    {
+        <a asp-page="/flowers/create" class="btn btn-primary">Add New Flower</a>
+    }
 }
 
  

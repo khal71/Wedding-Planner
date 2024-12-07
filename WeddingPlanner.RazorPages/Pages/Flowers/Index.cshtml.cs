@@ -23,8 +23,11 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
 
         [BindProperty]
         public bool isLoggedin { get; set; }
+        [BindProperty]
+        public bool isAdmin { get; set; }
         public async Task<IActionResult> OnGetAsync()
         {
+            isAdmin = _sessionManager.IsAdmin;
             isLoggedin = _sessionManager.IsAuthenticated;
            if (isLoggedin == true)
             {
@@ -37,7 +40,7 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
             }
            else
             {// change to user login
-              return RedirectToPage("/Admin/AdminLogin");
+              return RedirectToPage("/UserLogin/UserLogin");
             }
         }
     }

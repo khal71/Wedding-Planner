@@ -27,6 +27,28 @@ namespace WeddingPlanner.RazorPages.Pages.Auth
             }
             return null;
         }
+        public async Task<LoginResponse> LoginUser(LoginModelDTO user)
+        {
+            user.Password = AuthService.HashPassword(user.Password);
+            var response = await _httpClient.PostAsJsonAsync("./user/login", user);
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<LoginResponse>();
+
+            }
+            return null;
+        }
+        public async Task<bool> RegisterUser(LoginModelDTO user)
+        {
+            user.Password = AuthService.HashPassword(user.Password);
+            var response = await _httpClient.PostAsJsonAsync("./user/register", user);
+            if (response.IsSuccessStatusCode)
+            {
+                return true;
+
+            }
+            return false;
+        }
 
         public static string HashPassword(string password)
         {

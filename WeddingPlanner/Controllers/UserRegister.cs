@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WeddingPlanner.DTO;
 using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerDomain.Entities;
 
@@ -14,17 +15,18 @@ namespace WeddingPlanner.Controllers
             _userService = userService;
 
         }
-
         [HttpPost("user/register")]
-        public async Task<ActionResult> RegisterUser([FromBody] User request)
+        public async Task<ActionResult> RegisterUser([FromBody] LoginModelDTO request)
         {
             var existingUser = _userService.FindByEmailAsync(request.Email);
             if (existingUser.Result.Model != null)
             {
                 return BadRequest(" Email is already taken");
             }
-           
-            var result = await _userService.AddAsync(request);
+            var user = new User();
+            user.Email = request.Email;
+            user.Password = request.Password;
+            var result = await _userService.AddAsync(user);
 
             if (!result.IsSuccess)
             {

@@ -56,7 +56,8 @@ builder.Services.AddSwaggerGen(swagger =>
 });
 //Adding db context to the database
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddAuthentication(options =>
 {
@@ -83,6 +84,16 @@ builder.Services.AddAuthorization(options =>
         policy.RequireClaim(ClaimTypes.Role, "Admin")); // Require Role claim to be "Admin"
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", builder =>
+    {
+        builder.AllowAnyOrigin()   // Allow any origin
+               .AllowAnyMethod()   // Allow any HTTP method (GET, POST, etc.)
+               .AllowAnyHeader();  // Allow any headers
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -91,7 +102,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors("AllowAllOrigins");
 app.UseAuthentication();
 app.UseAuthorization();
 

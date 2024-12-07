@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WeddingPlanner.RazorPages.Pages.Auth;
@@ -22,23 +23,48 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
         public Flower Flower { get; set; }
         [BindProperty]
         public bool isAdmin  { get; set; }
-
-
+        [BindProperty]
+        public IFormFile ImageFile { get; set; }
         public void OnGet()
         {
              isAdmin = _sessionManager.IsAdmin;
         }
+        
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
+            Flower.Id = 0;
+
+            if (ImageFile != null)
             {
-                return Page();
+                var allowedExtensions = new[] { "image/jpeg", "image/png", "image/gif" };
+                if (!allowedExtensions.Contains(ImageFile.ContentType))
+                {
+                    // Handle invalid file type
+                    ModelState.AddModelError("ImageFile", "Please upload a valid image file (JPEG, PNG, GIF).");
+                    return Page();
+                }
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    await ImageFile.CopyToAsync(memoryStream);
+                    Flower.ImageData = memoryStream.ToArray();
+                }
             }
 
-            await _flowerService.AddFlowerAsync(Flower);
 
-            return RedirectToPage("Index");
+            var res = await _flowerService.AddFlowerAsync(Flower);
+
+            if (res == true)
+            {
+
+                return RedirectToPage("Index");
+            }
+            else
+            {
+
+                return Page();
+            }
         }
     }
 }

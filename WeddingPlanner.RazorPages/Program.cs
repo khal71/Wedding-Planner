@@ -13,14 +13,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddHttpClient("ApiHttpClient", client =>
-{
-    client.BaseAddress = new Uri(builder.Configuration["ApiUrl"]);
-});
+
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<FlowerService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddSingleton<SessionManager>();
+
+builder.Services.AddHttpClient("ApiHttpClient", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiUrl"]);
+});
 
 var app = builder.Build();
 
@@ -35,7 +37,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
