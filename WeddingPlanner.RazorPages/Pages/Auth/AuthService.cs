@@ -18,7 +18,7 @@ namespace WeddingPlanner.RazorPages.Pages.Auth
 
         public async Task<LoginResponse> LoginAdmin(LoginModelDTO admin)
         {
-            admin.Password = AuthService.HashPassword(admin.Password);
+            admin.Password = HashPassword(admin.Password);
             var response = await _httpClient.PostAsJsonAsync("./admin", admin);
             if (response.IsSuccessStatusCode)
             {
@@ -29,7 +29,7 @@ namespace WeddingPlanner.RazorPages.Pages.Auth
         }
         public async Task<LoginResponse> LoginUser(LoginModelDTO user)
         {
-            user.Password = AuthService.HashPassword(user.Password);
+            user.Password = HashPassword(user.Password);
             var response = await _httpClient.PostAsJsonAsync("./user/login", user);
             if (response.IsSuccessStatusCode)
             {
@@ -40,7 +40,7 @@ namespace WeddingPlanner.RazorPages.Pages.Auth
         }
         public async Task<bool> RegisterUser(LoginModelDTO user)
         {
-            user.Password = AuthService.HashPassword(user.Password);
+            user.Password = HashPassword(user.Password);
             var response = await _httpClient.PostAsJsonAsync("./user/register", user);
             if (response.IsSuccessStatusCode)
             {
@@ -50,7 +50,7 @@ namespace WeddingPlanner.RazorPages.Pages.Auth
             return false;
         }
 
-        public static string HashPassword(string password)
+        public string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
             {

@@ -1,0 +1,25 @@
+﻿@page "/user/update/{id:int}"
+@model WeddingPlanner.RazorPages.Pages.Users.UpdateModel
+@{
+    ViewData["Title"] = "Update Info";
+}
+<h1>Update Info</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="User.Id" />
+    <div class="form-group">
+        <label asp-for="User.Email"></label>
+        <input asp-for="User.Email" class="form-control" />
+    </div>
+    <div class="form-group" type="hidden">
+       
+        <input asp-for="User.Password" type="hidden" />
+    </div>
+    <div class="form-group">
+        <label asp-for="newPassword"></label>
+        <input asp-for="newPassword" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

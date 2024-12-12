@@ -1,27 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using WeddingPlannerApplication.Services.ServicesInterfaces;
 using WeddingPlannerDomain;
+using WeddingPlannerDomain.Entities;
 
-namespace WeddingPlanner.RazorPages.Pages.Flowers
+namespace WeddingPlanner.RazorPages.Pages.Users
 {
-
-    public class DeleteFlowerModel : PageModel
+    public class DeleteModel : PageModel
     {
-        private readonly FlowerService _flowerService;
+        private readonly UserServiceR _userService;
 
-        public DeleteFlowerModel(FlowerService flowerService)
+        public DeleteModel(UserServiceR userService)
         {
-            _flowerService = flowerService;
+            _userService = userService;
         }
 
         [BindProperty]
-        public Flower Flower { get; set; }
+        public User User { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
-            Flower = await _flowerService.GetFlowerByIdAsync(id);
-            if (Flower == null)
+            User = await _userService.GetUserByIdAsync(id);
+            if (User == null)
             {
                 return NotFound();
             }
@@ -30,12 +29,12 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
 
         public async Task<IActionResult> OnPostAsync(int id)
         {
-            var res = await _flowerService.DeleteFlowerAsync(id);
-           
+            var res = await _userService.DeleteUserAsync(id);
+
             if (res == true)
             {
-                
-                return RedirectToPage("/Index"); // Redirect after deletion
+
+                return RedirectToPage("Index"); // Redirect after deletion
             }
             else
             {
@@ -46,6 +45,4 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
 
         }
     }
-
 }
-

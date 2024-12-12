@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using WeddingPlanner.DTO;
 using WeddingPlanner.RazorPages.Pages.Auth;
 
-namespace WeddingPlanner.RazorPages.Pages.User
+namespace WeddingPlanner.RazorPages.Pages.Users
 {
     public class CreateModel : PageModel
     {
@@ -24,7 +24,7 @@ namespace WeddingPlanner.RazorPages.Pages.User
         {
 
            await _authService.RegisterUser(User);
-            return Page();
+            return RedirectToPage("./Pages/Index");
         }
     }
 }
