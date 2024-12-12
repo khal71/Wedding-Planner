@@ -46,12 +46,7 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseCors("AllowAll");
-app.MapPost("/api/logout", (HttpContext context, SessionManager sessionManager) =>
-{
-    sessionManager.ClearToken(); // CallClearToken method
-    return Results.Ok(new { success = true });
-});
+
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
