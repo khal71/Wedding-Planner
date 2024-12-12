@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using WeddingPlanner.RazorPages.Pages.Auth;
 using WeddingPlanner.RazorPages.Pages.Flowers;
+using WeddingPlanner.RazorPages.Pages.Users;
 using WeddingPlannerApplication.RepositoriesInterfaces;
 using WeddingPlannerApplication.Services.ServicesImplementation;
 using WeddingPlannerApplication.Services.ServicesInterfaces;
@@ -16,12 +17,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<FlowerService>();
+builder.Services.AddScoped<UserServiceR>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddSingleton<SessionManager>();
 
 builder.Services.AddHttpClient("ApiHttpClient", client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ApiUrl"]);
+});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()  // Allow any origin
+              .AllowAnyMethod()  // Allow any HTTP method (GET, POST, etc.)
+              .AllowAnyHeader(); // Allow any headers
+    });
 });
 
 var app = builder.Build();
@@ -35,7 +46,12 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseCors("AllowAll");
+app.MapPost("/api/logout", (HttpContext context, SessionManager sessionManager) =>
+{
+    sessionManager.ClearToken(); // CallClearToken method
+    return Results.Ok(new { success = true });
+});
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();

@@ -1,0 +1,17 @@
+﻿@page "/user/view/{id:int}"
+@model WeddingPlanner.RazorPages.Pages.Users.ViewModel
+
+
+
+@{
+
+    ViewData["Title"] = "User Details";
+}
+
+<h1>user details</h1>
+<p>@Model.User.Email</p>
+
+<p>Id: @Model.User.Id</p>
+
+
+<a asp-page="Index" class="btn btn-secondary">Back to List</a>
