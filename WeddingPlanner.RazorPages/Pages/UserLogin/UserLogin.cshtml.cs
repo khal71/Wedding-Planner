@@ -29,7 +29,7 @@ namespace WeddingPlanner.RazorPages.Pages.UserLogin
 
             LoginResponse = await _authService.LoginUser(User);
             _sessionManager.SetToken(LoginResponse.Token);
-            return Page();
+            return RedirectToPage("/Index");
         }
     }
 }
