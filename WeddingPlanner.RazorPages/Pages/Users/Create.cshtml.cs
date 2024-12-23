@@ -24,7 +24,7 @@ namespace WeddingPlanner.RazorPages.Pages.Users
         {
 
            await _authService.RegisterUser(User);
-            return RedirectToPage("./Pages/Index");
+            return RedirectToPage("/Index");
         }
     }
 }
