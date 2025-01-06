@@ -16,10 +16,10 @@ namespace WeddingPlannerInfrastructure.DB
 
         }
         public DbSet<WeddingPlannerDomain.Flower> ?Flower { get; set; }
-        public DbSet<Food> ?Food { get; set; }
+        public DbSet<WeddingPlannerDomain.Entities.Food> ?Food { get; set; }
         public DbSet<User> ?Users { get; set; }
         public DbSet<Admin> ?Admins { get; set; }
-        public DbSet<Location> ?Locations { get; set; }
+        public DbSet<WeddingPlannerDomain.Entities.Location> ?Locations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,11 +35,11 @@ namespace WeddingPlannerInfrastructure.DB
                .Property(f => f.Id)
                .ValueGeneratedOnAdd();
 
-            modelBuilder.Entity<Food>()
-                .Property(f => f.Id)
+            modelBuilder.Entity<WeddingPlannerDomain.Entities.Food>()
+                .Property(c => c.Id)
                 .ValueGeneratedOnAdd();
 
-            modelBuilder.Entity<Location>()
+            modelBuilder.Entity<WeddingPlannerDomain.Entities.Location>()
                 .Property(l => l.Id)
                 .ValueGeneratedOnAdd();
 
