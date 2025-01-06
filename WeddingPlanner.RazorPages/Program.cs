@@ -17,6 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<FlowerService>();
+builder.Services.AddScoped<FoodService>();
+builder.Services.AddScoped<LocationService>();
 builder.Services.AddScoped<UserServiceR>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddSingleton<SessionManager>();

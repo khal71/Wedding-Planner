@@ -53,8 +53,10 @@ namespace WeddingPlannerInfrastructure.ReposImplementation
                 food.ImageData = updatedFood.ImageData;
                 food.Name = updatedFood.Name;
                 food.Type = updatedFood.Type;
+                await _dbContext.SaveChangesAsync();
                 
             }
+            return food; 
         }
     }
 }
