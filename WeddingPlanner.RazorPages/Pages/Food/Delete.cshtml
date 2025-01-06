@@ -1,4 +1,14 @@
-﻿@page
-@model WeddingPlanner.RazorPages.Pages.Food.DeleteModel
+﻿@page "/food/delete/{id:int}"
+@model WeddingPlanner.RazorPages.Pages.Food.DeleteFoodModel
 @{
+    ViewData["Title"] = "Delete Food";
 }
+<h1>Delete Food</h1>
+
+<p>Are you sure you want to delete this food?</p>
+<p><strong>@Model.food.Name</strong> - @Model.food.Type</p>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

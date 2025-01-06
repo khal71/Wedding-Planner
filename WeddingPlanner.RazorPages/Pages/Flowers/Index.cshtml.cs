@@ -19,7 +19,7 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
             _sessionManager = sessionManager;
         }
 
-        public List<Flower> Flowers { get; set; }
+        public List<WeddingPlannerDomain.Flower> Flowers { get; set; }
 
         [BindProperty]
         public bool isLoggedin { get; set; }

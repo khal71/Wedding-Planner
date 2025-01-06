@@ -16,6 +16,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IFlowerService, FlowerService>();
 builder.Services.AddScoped<IFlowerRepo, FlowerRepo>();
 
+builder.Services.AddScoped<ILocationService, LocationService>();
+builder.Services.AddScoped<ILocationRepo, LocationRepo>();
+
+builder.Services.AddScoped<IFoodService, FoodService>();
+builder.Services.AddScoped<IFoodRepo, FoodRepo>();
+
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IAdminRepo, AdminRepo>();
 

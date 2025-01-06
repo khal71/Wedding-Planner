@@ -1,4 +1,34 @@
 ﻿@page
-@model WeddingPlanner.RazorPages.Pages.Food.UpdateModel
+@model WeddingPlanner.RazorPages.Pages.Food.UpdateFoodModel
 @{
+    ViewData["Title"] = "Edite Food"; 
 }
+<h1>Edit Food</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <input type="file" asp-for="ImageFile" />
+    @if (Model.food.ImageData != null && Model.food.ImageData.Length > 0)
+    {
+        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.food.ImageData)" alt="Flower Image" class="img-fluid" />
+    }
+    <input type="hidden" asp-for="food.ImageData" />
+    <input type="hidden" asp-for="food.Id" />
+    <div class="form-group">
+        <label asp-for="food.Name"></label>
+        <input asp-for="food.Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="food.Type"></label>
+        <input asp-for="food.Type" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="food.Vegetarian"></label>
+        <input asp-for="food.Vegetarian" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="food.Vegan"></label>
+        <input asp-for="food.Vegan" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

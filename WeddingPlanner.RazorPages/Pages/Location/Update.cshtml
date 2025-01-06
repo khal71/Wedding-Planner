@@ -1,4 +1,44 @@
-﻿@page
-@model WeddingPlanner.RazorPages.Pages.Location.UpdateModel
+﻿@page "/location/update/{id:int}"
+@model WeddingPlanner.RazorPages.Pages.Location.UpdateLocationModel
 @{
+    ViewData["Title"] = "Edit Location";
 }
+
+<h1>Edit Location</h1>
+
+<form method="post" enctype="multipart/form-data">
+    <input type="file" asp-for="ImageFile" />
+    @if (Model.Location.ImageData != null && Model.Location.ImageData.Length > 0)
+    {
+        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Location.ImageData)" alt="Flower Image" class="img-fluid" />
+    }
+    <input type="hidden" asp-for="Location.ImageData" />
+    <input type="hidden" asp-for="Location.Id" />
+    <div class="form-group">
+        <label asp-for="Location.Name"></label>
+        <input asp-for="Location.Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Location.Type"></label>
+        <input asp-for="Location.Type" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Location.StreetName"></label>
+        <input asp-for="Location.StreetName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Location.PostalCode"></label>
+        <input asp-for="Location.PostalCode" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Location.City"></label>
+        <input asp-for="Location.City" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Location.Country"></label>
+        <input asp-for="Location.Country" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>
+

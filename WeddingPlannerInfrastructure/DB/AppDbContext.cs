@@ -15,10 +15,11 @@ namespace WeddingPlannerInfrastructure.DB
         {
 
         }
-        public DbSet<Flower> ?Flower { get; set; }
+        public DbSet<WeddingPlannerDomain.Flower> ?Flower { get; set; }
         public DbSet<Food> ?Food { get; set; }
         public DbSet<User> ?Users { get; set; }
         public DbSet<Admin> ?Admins { get; set; }
+        public DbSet<Location> ?Locations { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -30,9 +31,18 @@ namespace WeddingPlannerInfrastructure.DB
                 .Property(a => a.Id)
                 .ValueGeneratedOnAdd();
 
-            modelBuilder.Entity<Flower>()
+            modelBuilder.Entity<WeddingPlannerDomain.Flower>()
                .Property(f => f.Id)
                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Food>()
+                .Property(f => f.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Location>()
+                .Property(l => l.Id)
+                .ValueGeneratedOnAdd();
+
         }
        
 

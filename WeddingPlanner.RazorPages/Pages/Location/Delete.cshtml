@@ -1,4 +1,14 @@
-﻿@page
-@model WeddingPlanner.RazorPages.Pages.Location.DeleteModel
+﻿@page "/location/delete/{id:int}"
+@model WeddingPlanner.RazorPages.Pages.Location.DeleteLocationModel
 @{
+    ViewData["Title"] = "Delete Location";
 }
+<h1>Delete Location </h1>
+
+<p>Are you sure you want to delete this Location?</p>
+<p><strong>@Model.Location.Name</strong> - @Model.Location.Type</p>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

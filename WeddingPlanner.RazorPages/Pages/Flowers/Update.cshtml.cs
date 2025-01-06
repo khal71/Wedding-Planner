@@ -17,7 +17,7 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
         }
 
         [BindProperty]
-        public Flower Flower { get; set; }
+        public WeddingPlannerDomain.Flower Flower { get; set; }
        
         [BindProperty]
         public IFormFile ImageFile { get; set; }

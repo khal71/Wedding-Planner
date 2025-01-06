@@ -1,4 +1,18 @@
-﻿@page
-@model WeddingPlanner.RazorPages.Pages.Food.ViewModel
+﻿@page "/food/view/{id:int}"
+@model WeddingPlanner.RazorPages.Pages.Food.ViewFoodModel
 @{
+    ViewData["Title"] = "Food Details";
 }
+@if (Model.Food.ImageData != null && Model.Food.ImageData.Length > 0)
+{
+    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Food.ImageData)" alt="Food Image" class="img-fluid" />
+}
+<h1>@Model.Food.Name</h1>
+
+<p>Type: @Model.Food.Type</p>
+<p>Vegan: @Model.Food.Vegan</p>
+<p>Vegetarian: @Model.Food.Vegetarian</p>
+
+
+
+<a asp-page="Index" class="btn btn-secondary">Back to List</a>
