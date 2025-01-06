@@ -14,6 +14,6 @@ namespace WeddingPlannerApplication.Services.ServicesInterfaces
         Task<ActionResponse<Food>> AddAsync(Food newFood);
         Task<ActionResponse<Food>> UpdateAsync(int id, Food updateFood);
         Task<ActionResponse<Food>> DeleteAsync(int id);
-        Task<ActionResponse<Food>> DetByIdAsync(int id);
+        Task<ActionResponse<Food>> GetByIdAsync(int id);
     }
 }

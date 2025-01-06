@@ -15,26 +15,26 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
             _sessionManager = sessionManager;
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _sessionManager.stringToken);
         }
-        public async Task<List<Flower>> GetAllFlowersAsync()
+        public async Task<List<WeddingPlannerDomain.Flower>> GetAllFlowersAsync()
         {
             
-            return await _httpClient.GetFromJsonAsync<List<Flower>>("./flower");
+            return await _httpClient.GetFromJsonAsync<List<WeddingPlannerDomain.Flower>>("./flower");
             
         }
 
-        public async Task<Flower> GetFlowerByIdAsync(int id)
+        public async Task<WeddingPlannerDomain.Flower> GetFlowerByIdAsync(int id)
         {
-            return await _httpClient.GetFromJsonAsync<Flower>($"/flower/{id}");
+            return await _httpClient.GetFromJsonAsync<WeddingPlannerDomain.Flower>($"/flower/{id}");
         }
 
-        public async Task<bool> AddFlowerAsync(Flower flower)
+        public async Task<bool> AddFlowerAsync(WeddingPlannerDomain.Flower flower)
         {
            
-           var res = await _httpClient.PostAsJsonAsync<Flower>("/flower", flower);
+           var res = await _httpClient.PostAsJsonAsync("/flower", flower);
             return res.IsSuccessStatusCode;
         }
 
-        public async Task UpdateFlowerAsync(Flower flower)
+        public async Task UpdateFlowerAsync(WeddingPlannerDomain.Flower flower)
         {
             await _httpClient.PutAsJsonAsync($"/flower", flower);
         }

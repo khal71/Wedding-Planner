@@ -1,4 +1,43 @@
-﻿@page
-@model WeddingPlanner.RazorPages.Pages.Location.CreateModel
+﻿@page "/location/create"
+@model WeddingPlanner.RazorPages.Pages.Location.CreateLocationModel
 @{
+    ViewData["Title"] = "Create Location"; 
+}
+@if (Model.isAdmin == false)
+{
+    <h1>Create Location</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" asp-for="ImageFile" />
+        <div class="form-group">
+            <label asp-for="Location.Name"></label>
+            <input asp-for="Location.Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Location.Type"></label>
+            <input asp-for="Location.Type" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Location.StreetName"></label>
+            <input asp-for="Location.StreetName" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Location.City"></label>
+            <input asp-for="Location.City" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Location.PostalCode"></label>
+            <input asp-for="Location.PostalCode" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Location.Country"></label>
+            <input asp-for="Location.Country" class="form-control" />
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+
+    </form>
+    <h1>Aunothorized access </h1>
 }

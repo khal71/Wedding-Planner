@@ -1,5 +1,48 @@
-﻿@page
-@model WeddingPlanner.RazorPages.Pages.Location.IndexModel
+﻿@page "/Location"
+@model WeddingPlanner.RazorPages.Pages.Location.IndexLocationModel
 @{
+    ViewData["Title"] = "Location"; 
 }
-<h1>locationindex</h1>
+@if (Model.isLoggedin == true)
+{
+    <h1>All Locations</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>StreetNumber</th>
+                <th>PostalCode</th>
+                <th>City</th>
+                <th>Country</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var location in Model.Locations)
+            {
+                <tr>
+                    <td>@location.Name</td>
+                    <td>@location.Type</td>
+                    <td>@location.StreetName</td>
+                    <td>@location.PostalCode</td>
+                    <td>@location.City</td>
+                    <td>@location.Country</td>
+                    <td>
+                        <a asp-page="/location/view" asp-route-id="@location.Id" class="btn btn-info">View</a>
+                        @if (@Model.isAdmin == true)
+                        {
+                            <a asp-page="/flowers/update" asp-route-id="@location.Id" class="btn btn-warning">Edit</a>
+                            <a asp-page="/flowers/delete" asp-route-id="@location.Id" class="btn btn-danger">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (@Model.isAdmin == true)
+    {
+        <a asp-page="/flowers/create" class="btn btn-primary">Add New Location</a>
+    }
+}
+

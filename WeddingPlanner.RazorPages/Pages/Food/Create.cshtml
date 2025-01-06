@@ -1,4 +1,38 @@
-﻿@page
-@model WeddingPlanner.RazorPages.Pages.Food.CreateModel
+﻿@page "/food/create"
+@model WeddingPlanner.RazorPages.Pages.Food.CreateFoodModel
 @{
+    ViewData["Title"] = "Create Food"; 
+}
+@if (@Model.isAdmin == false)
+{
+    <h1>Create Food</h1>
+
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" asp-for="ImageFile" />
+        <div class="form-group">
+            <label asp-for="food.Name"></label>
+            <input asp-for="food.Name" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="food.Type"></label>
+            <input asp-for="food.Type" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="food.Vegetarian"></label>
+            <input asp-for="food.Vegetarian" class="form-control" />
+        </div>
+        <div class="form-group">
+            <label asp-for="food.Vegan"></label>
+            <input asp-for="food.Vegan" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+
+    </form>
+    <h1>Aunothorized access </h1>
+}
+@if (@Model.isAdmin == true)
+{
+
+
 }

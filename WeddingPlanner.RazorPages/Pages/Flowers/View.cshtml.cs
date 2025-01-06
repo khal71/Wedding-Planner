@@ -17,7 +17,7 @@ namespace WeddingPlanner.RazorPages.Pages.Flowers
             }
 
            
-            public Flower Flower { get; set; }
+            public WeddingPlannerDomain.Flower Flower { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
